@@ -1,10 +1,10 @@
 <div>
     <div>
-      <input type="text" name="keywords" id="keywords">
+      <input type="text" name="keywords" [(ngModel)]="keywords">
     </div>
     <div>
       <input type="submit" value="Entrer!" (click)="queryFlickr()">
     </div>
 </div>
 
-<img src="{{url}}" alt ="Placeholder" id="image" /> <br />
+<img src="{{searchPhotoUrl}}" alt ="Placeholder" id="image" /> <br />
