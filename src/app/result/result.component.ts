@@ -1,11 +1,11 @@
 import { Component, Directive, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-result-component',
-  templateUrl: './result-component.component.html',
-  styleUrls: ['./result-component.component.css']
+  selector: 'app-result',
+  templateUrl: './result.component.html',
+  styleUrls: ['./result.component.css']
 })
-export class ResultComponentComponent implements OnInit {
+export class ResultComponent implements OnInit {
 
   searchPhotoUrl : string = "";
 

@@ -1,16 +1,16 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { PhotosInterface } from '../photos-interface';
-import { ResultComponentComponent } from '../result-component/result-component.component';
+import { ResultComponent } from '../result/result.component';
 
 @Component({
-  selector: 'app-search-component',
-  templateUrl: './search-component.component.html',
-  styleUrls: ['./search-component.component.css']
+  selector: 'app-search',
+  templateUrl: './search.component.html',
+  styleUrls: ['./search.component.css']
 })
-export class SearchComponentComponent implements OnInit {
+export class SearchComponent implements OnInit {
 
-  @ViewChild(ResultComponentComponent) resultComponent : any;
+  @ViewChild(ResultComponent) resultComponent : any;
   
   photos : any;
   keywords: string = "";
@@ -39,10 +39,7 @@ export class SearchComponentComponent implements OnInit {
 
       this.http.get<PhotosInterface>(searchUrl).subscribe(data => {
         this.photos = data.photos.photo;
-        console.log("ok");
-        this.resultComponent.displayResultImages(this.photos);
-        //let photo = this.photos[0];
-        // TODO : envoyer le tab de photos au composant result
+        this.resultComponent.displayResultImages(this.photos); // appel de fonction du composant enfant
       }, (err: HttpErrorResponse) => {
         console.log("An error has occured");
       }); 
