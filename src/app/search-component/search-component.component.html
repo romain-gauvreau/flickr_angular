@@ -1,0 +1,10 @@
+<div>
+    <div>
+      <input type="text" name="keywords" [(ngModel)]="keywords">
+    </div>
+    <div>
+      <input type="submit" value="Entrer!" (click)="querySearchFlickr()">
+    </div>
+</div>
+
+<app-result-component></app-result-component>
