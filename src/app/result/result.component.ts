@@ -7,7 +7,7 @@ import { Component, Directive, Input, OnInit } from '@angular/core';
 })
 export class ResultComponent implements OnInit {
 
-  searchPhotoUrl : string = "";
+  searchPhotoUrls : Array<String> = [];
 
   constructor() { }
 
@@ -16,10 +16,16 @@ export class ResultComponent implements OnInit {
 
   displayResultImages(photos : Array<any>){ 
     if(photos.length != 0){
-      let photo = photos[0];
-      // console.log("https://live.staticflickr.com/" + photo.server + "/" + photo.id + "_" + photo.secret + ".jpg");
-      this.searchPhotoUrl = "https://live.staticflickr.com/" + photo.server + "/" + photo.id + "_" + photo.secret + ".jpg";
-      // https://live.staticflickr.com/{server-id}/{id}_{secret}.jpg
+      console.log(photos);
+      for(let i = 0; i < photos.length; i++){
+        let photo = photos[i];
+        // console.log("https://live.staticflickr.com/" + photo.server + "/" + photo.id + "_" + photo.secret + ".jpg");
+        this.searchPhotoUrls.push("https://live.staticflickr.com/" + photo.server + "/" + photo.id + "_" + photo.secret + ".jpg");
+        // https://live.staticflickr.com/{server-id}/{id}_{secret}.jpg
+        if(i >= 9){ // stop at the 10th image
+          i = photos.length;
+        }
+      }
     }
   }
 
