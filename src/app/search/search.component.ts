@@ -18,6 +18,7 @@ export class SearchComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
+    document.getElementById("filtreBtn")?.addEventListener("click", this.displayFilters);
   }
 
   /**
@@ -27,6 +28,16 @@ export class SearchComponent implements OnInit {
    */
   isBlank(str : string) {
     return (!str || /^\s*$/.test(str));
+  }
+
+  displayFilters(){
+    console.log("clic");
+    if(document.getElementById("filtres")?.style.getPropertyValue("display") == "inline-block"){
+      document.getElementById("filtres")!.style.display = "none";
+    }
+    else{
+      document.getElementById("filtres")!.style.display = "inline-block";
+    }
   }
 
   querySearchFlickr(){

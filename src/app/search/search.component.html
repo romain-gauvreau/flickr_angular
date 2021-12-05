@@ -1,7 +1,14 @@
 <div>
     <div>
       <input type="text" name="keywords" placeholder="Rechercher des images" [(ngModel)]="keywords">
+      <input type="button" value="Filtres" id="filtreBtn">
     </div>
+
+    <div id="filtres" style="display:none">
+      <input type="button" value="Taille de l'image">
+      <input type="button" value="NSFW">
+    </div>
+
     <div>
       <input type="submit" value="Chercher!" (click)="querySearchFlickr()">
     </div>
