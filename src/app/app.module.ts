@@ -7,17 +7,29 @@ import { ResultComponent } from './result/result.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { SearchComponent } from './search/search.component';
+import { RouterModule, Routes } from '@angular/router';
 import {MatGridListModule} from '@angular/material/grid-list';
+import { DetailsComponent } from './details/details.component';
+import { LogoComponent } from './logo/logo.component';
+
+const routes: Routes = [
+  { path: '', component: SearchComponent },
+  { path: 'search/:query', component: SearchComponent },
+  { path: 'details/:id', component: DetailsComponent },
+]
 
 @NgModule({
   declarations: [
     AppComponent,
     ResultComponent,
-    SearchComponent
+    SearchComponent,
+    DetailsComponent,
+    LogoComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    RouterModule.forRoot(routes),
     HttpClientModule,
     FormsModule,
     MatGridListModule
