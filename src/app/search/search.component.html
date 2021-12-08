@@ -1,17 +1,17 @@
-<form (submit)="querySearchFlickr()">
-    <div>
-      <input type="text" name="keywords" placeholder="Rechercher des images" [(ngModel)]="keywords">
-      <input type="button" value="Filtres" id="filtreBtn">
-    </div>
+<div>
+  <input type="text" placeholder="Rechercher des images" [(ngModel)]="search">
+</div>
 
-    <div id="filtres" style="display:none">
-      <input type="button" value="Taille de l'image">
-      <input type="button" value="NSFW">
-    </div>
 
-    <div>
-      <input type="submit" value="Chercher!" (click)="querySearchFlickr()">
-    </div>
-</form>
+<div>
+  <input type="submit" (click)="submitSearch()">
+</div>
 
-<app-result></app-result>
+
+<mat-grid-list cols="5">
+  <mat-grid-tile *ngFor="let photo of photos;">
+    <a [routerLink]="['/details', photo.id]">
+      <img src="{{getImageURLFromPhoto(photo)}}" alt ="Placeholder" id="image" style="height : 100%;" />
+    </a>
+  </mat-grid-tile>
+</mat-grid-list>
