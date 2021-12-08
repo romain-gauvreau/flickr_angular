@@ -1,4 +1,4 @@
-<div>
+<form (submit)="querySearchFlickr()">
     <div>
       <input type="text" name="keywords" placeholder="Rechercher des images" [(ngModel)]="keywords">
       <input type="button" value="Filtres" id="filtreBtn">
@@ -12,6 +12,6 @@
     <div>
       <input type="submit" value="Chercher!" (click)="querySearchFlickr()">
     </div>
-</div>
+</form>
 
 <app-result></app-result>
