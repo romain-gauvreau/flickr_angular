@@ -5,6 +5,7 @@ import {ResultComponent} from '../result/result.component';
 import {ActivatedRoute, Router} from '@angular/router';
 import {PhotoInterface} from "../shared/models/photo-interface";
 import {FlickrService} from "../shared/services/flickr.service";
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-search',
@@ -13,10 +14,12 @@ import {FlickrService} from "../shared/services/flickr.service";
 })
 export class SearchComponent implements OnInit {
 
-  search: string = "";
-  photos: PhotoInterface[] = [];
+  search: string;
+  photos: PhotoInterface[];
 
   constructor(private flickrService: FlickrService) {
+    this.search = "";
+    this.photos = [];
   }
 
   public ngOnInit() {
