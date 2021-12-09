@@ -20,12 +20,20 @@ export class SearchComponent implements OnInit {
   }
 
   public ngOnInit() {
+    document.getElementById("search")!.addEventListener('keydown', e => this.detectEnter(e));
     this.flickrService.getInterestingPhotos().subscribe((photos) => {
       this.photos = photos;
     }, (err: HttpErrorResponse) => {
       console.log("An error has occurred");
       console.log(err);
     });
+  }
+
+  public detectEnter(event : any){
+    const key = event.key;
+    if(event.key == "Enter"){
+      this.submitSearch();
+    }
   }
 
   public submitSearch() {
