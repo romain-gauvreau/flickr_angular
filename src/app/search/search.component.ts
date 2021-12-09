@@ -20,13 +20,20 @@ export class SearchComponent implements OnInit {
   }
 
   public ngOnInit() {
+    if(localStorage.getItem('searchText') != null){
+      // the || "" expression is to cancel the warning that states getItem() can return null
+      // it doesn't detect with the condition above...
+      this.search = localStorage.getItem('searchText') || "";
+      this.submitSearch();
+    } else {
+      this.flickrService.getInterestingPhotos().subscribe((photos) => {
+        this.photos = photos;
+      }, (err: HttpErrorResponse) => {
+        console.log("An error has occurred");
+        console.log(err);
+      });
+    }
     document.getElementById("search")!.addEventListener('keydown', e => this.detectEnter(e));
-    this.flickrService.getInterestingPhotos().subscribe((photos) => {
-      this.photos = photos;
-    }, (err: HttpErrorResponse) => {
-      console.log("An error has occurred");
-      console.log(err);
-    });
   }
 
   public detectEnter(event : any){
@@ -37,6 +44,7 @@ export class SearchComponent implements OnInit {
   }
 
   public submitSearch() {
+    localStorage.setItem('searchText', this.search);
     this.flickrService.searchPhotosByText(this.search).subscribe((data) => {
       this.photos = data.photos.photo;
     }, (err: HttpErrorResponse) => {
