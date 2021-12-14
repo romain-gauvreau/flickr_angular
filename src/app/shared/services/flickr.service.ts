@@ -58,5 +58,18 @@ export class FlickrService {
     return `${environment.imageServerURL}${photo.server}/${photo.id}_${photo.secret}.jpg`;
   }
 
-
+  public getOtherPhotosFromUser(user_nsid: string, page = 1, per_page = 10): Observable<PhotosInterface> {
+    return this.http
+      .get<PhotosInterface>(environment.apiURL, {
+        params: {
+          api_key: environment.apiKey,
+          method: 'flickr.people.getPublicPhotos',
+          format: 'json',
+          user_id: user_nsid,
+          page: page,
+          per_page: per_page,
+          nojsoncallback: '1',        // Je viens de rester bloqué 1h30 sur ca c'est très grave
+        },
+      });
+  }
 }

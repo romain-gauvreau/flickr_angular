@@ -1,3 +1,4 @@
+<h2>Photo</h2>
 <h1>{{this.title}}</h1>
 <img [src]="this.url" [alt]="this.title" />
 
@@ -20,3 +21,15 @@
     <li>country: {{country}}</li>
     <li>neighbourhood: {{neighbourhood}}</li>
 </ul>
+
+<h2>Autres photos de l'auteur</h2>
+<p>{{ owner_nsid }}</p>
+<p>{{ other_photos.length }}</p>
+<ul>
+    <li *ngFor="let item of other_photos">
+        <h4><a href="http://localhost:4200/details/{{item.id}}">{{ item.title }}</a></h4>
+        <img [src]="this.flickrService.getImageURLFromPhoto(item)" /></li>
+</ul>
+
+<button (click)="previousPage()"><</button>
+<button (click)="nextPage()">></button>
