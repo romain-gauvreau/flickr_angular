@@ -11,6 +11,8 @@ import { RouterModule, Routes } from '@angular/router';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { DetailsComponent } from './details/details.component';
 import { LogoComponent } from './logo/logo.component';
+import {MatCardModule} from "@angular/material/card";
+import {MatButtonModule} from "@angular/material/button";
 
 const routes: Routes = [
   { path: '', component: SearchComponent },
@@ -32,7 +34,9 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     HttpClientModule,
     FormsModule,
-    MatGridListModule
+    MatGridListModule,
+    MatCardModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

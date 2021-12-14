@@ -1,16 +1,16 @@
-<form (submit)="querySearchFlickr()">
+<form (submit)="querySearchFlickr()" class="big-form">
     <div>
       <input type="text" name="keywords" placeholder="Rechercher des images" [(ngModel)]="keywords">
       <input type="button" value="Filtres" id="filtreBtn">
     </div>
 
     <div id="filtres" style="display:none">
-      <input type="button" value="Taille de l'image">
-      <input type="button" value="NSFW">
+      <input type="button" value="Taille de l'image" class="lil-button">
+      <input type="button" value="NSFW" class="lil-button">
     </div>
 
     <div>
-      <input type="submit" value="Chercher!" (click)="querySearchFlickr()">
+      <input type="submit" value="Chercher!" (click)="querySearchFlickr()" class="big-button">
     </div>
 </form>
 

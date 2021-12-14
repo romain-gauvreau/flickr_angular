@@ -11,6 +11,7 @@ export class ResultComponent implements OnInit {
 
   searchPhotos : Array<{
                           id: number;
+                          title: string;
                           url: string;
                         }> = [];
 
@@ -26,7 +27,7 @@ export class ResultComponent implements OnInit {
       for(let i = 0; i < photos.length; i++){
         let photo = photos[i];
         // console.log("https://live.staticflickr.com/" + photo.server + "/" + photo.id + "_" + photo.secret + ".jpg");
-        this.searchPhotos.push({id: photo.id, url: "https://live.staticflickr.com/" + photo.server + "/" + photo.id + "_" + photo.secret + ".jpg"});
+        this.searchPhotos.push({id: photo.id, title: photo.title, url: "https://live.staticflickr.com/" + photo.server + "/" + photo.id + "_" + photo.secret + ".jpg"});
         // https://live.staticflickr.com/{server-id}/{id}_{secret}.jpg
         if(i >= (max-1)){ // stop at the 10th image
           i = photos.length;
