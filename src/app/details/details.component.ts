@@ -45,7 +45,8 @@ export class DetailsComponent implements OnInit {
   other_photos: PhotoInterface[] = [];
   other_photos_page = 1;
 
-  proutprout = "";
+  page = 1;
+  pages = 1;
 
   constructor(public flickrService: FlickrService, private route: ActivatedRoute) {
     this.id = Number(this.route.snapshot.paramMap.get('id'));
@@ -79,7 +80,7 @@ export class DetailsComponent implements OnInit {
       //this.neighbourhood = data.photo.location.neighbourhood._content;
 
       // Not sure about that one ?
-      this.getOtherPhotos(1);
+      this.getOtherPhotos(this.page);
 
     }, (err: HttpErrorResponse) => {
       console.log("An error has occurred");
@@ -94,11 +95,26 @@ export class DetailsComponent implements OnInit {
   getOtherPhotos(page: number) {
       this.flickrService.getOtherPhotosFromUser(this.owner_nsid, page).subscribe((data) => {
         this.other_photos = data.photos.photo;
+        this.pages = data.photos.pages;
         console.log(this.owner_nsid);
         console.log(this.other_photos.length);
       }, (err: HttpErrorResponse) => {
         console.log("An error has occurred");
         console.log(err);
       })
+  }
+
+  nextPage() {
+    if (this.page < this.pages) {
+      this.page++;
+      this.getOtherPhotos(this.page);
+    }
+  }
+
+  previousPage() {
+    if (this.page > 1) {
+      this.page--;
+      this.getOtherPhotos(this.page);
+    }
   }
 }

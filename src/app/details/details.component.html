@@ -30,3 +30,6 @@
         <h4><a href="http://localhost:4200/details/{{item.id}}">{{ item.title }}</a></h4>
         <img [src]="this.flickrService.getImageURLFromPhoto(item)" /></li>
 </ul>
+
+<button (click)="previousPage()"><</button>
+<button (click)="nextPage()">></button>
