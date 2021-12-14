@@ -48,3 +48,10 @@
   background-image:url("/assets/loupe.png");
   background-size: 100% 100%;
 }
+.result-img > span {
+  width: 100%;
+  display: block;
+}
+.result-img {
+  width: 100%;
+}

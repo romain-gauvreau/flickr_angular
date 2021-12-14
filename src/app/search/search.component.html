@@ -1,6 +1,6 @@
 
 
-<form (submit)="submitSearch()" class="big-form">
+<div class="big-form">
 <div>
   <input type="text" placeholder="Rechercher des images" [(ngModel)]="search" id="search">
       <input type="button" value="Filtres" id="filtreBtn">
@@ -15,13 +15,14 @@
 <div>
   <input type="submit" (click)="submitSearch()" class="big-button">
 </div>
-</form>
+</div>
 
 
-<mat-grid-list cols="5">
+<mat-grid-list cols="5" gutterSize="2rem" style="max-width: 1380px;margin:0 auto">
   <mat-grid-tile *ngFor="let photo of photos;">
-    <a [routerLink]="['/details', photo.id]">
-      <img src="{{getImageURLFromPhoto(photo)}}" alt ="Placeholder" id="image" style="height : 100%;" />
+    <a class="result-img" [routerLink]="['/details', photo.id]">
+      <span>{{photo.title}}</span>
+      <img src="{{getImageURLFromPhoto(photo)}}" alt="Photo" style="max-height: 200px;">
     </a>
   </mat-grid-tile>
 </mat-grid-list>

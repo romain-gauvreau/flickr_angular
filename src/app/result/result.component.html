@@ -1,7 +1,7 @@
 <mat-grid-list cols="5" gutterSize="2rem" style="max-width: 1380px;margin:0 auto">
     <mat-grid-tile *ngFor="let photo of searchPhotos;">
       <a class="result-img" [routerLink]="['/details', photo.id]">
-          <span>{{photo.title}}</span>
+        <span>{{photo.title}}</span>
         <img src="{{photo.url}}" alt="Photo" style="max-height: 200px;">
       </a>
     </mat-grid-tile>
