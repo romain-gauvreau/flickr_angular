@@ -18,6 +18,7 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatCardModule} from "@angular/material/card";
 import {MatFormFieldModule} from "@angular/material/form-field";
 
+
 const routes: Routes = [
   { path: '', component: SearchComponent },
   { path: 'search/:query', component: SearchComponent },

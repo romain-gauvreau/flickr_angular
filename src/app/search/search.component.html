@@ -1,11 +1,21 @@
+
+
+<form (submit)="submitSearch()" class="big-form">
 <div>
   <input type="text" placeholder="Rechercher des images" [(ngModel)]="search" id="search">
-</div>
+      <input type="button" value="Filtres" id="filtreBtn">
+    </div>
+
+    <div id="filtres" style="display:none">
+      <input type="button" value="Taille de l'image" class="lil-button">
+      <input type="button" value="NSFW" class="lil-button">
+    </div>
 
 
 <div>
-  <input type="submit" (click)="submitSearch()">
+  <input type="submit" (click)="submitSearch()" class="big-button">
 </div>
+</form>
 
 
 <mat-grid-list cols="5">
