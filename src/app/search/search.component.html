@@ -2,13 +2,22 @@
 
 <div class="big-form">
 <div>
-  <input type="text" placeholder="Rechercher des images" [(ngModel)]="search" id="search">
-      <input type="button" value="Filtres" id="filtreBtn">
+  <input type="text" placeholder="Rechercher des images" [(ngModel)]="search" id="text-input">
+      <input type="button" value="Filtres" id="filtreBtn" (click)="toggleFilters()">
     </div>
 
-    <div id="filtres" style="display:none">
-      <input type="button" value="Taille de l'image" class="lil-button">
-      <input type="button" value="NSFW" class="lil-button">
+    <div id="filtres" *ngIf="isFiltersDisplayed">
+      <select id="search-safe-select" [(ngModel)]="safeSearchFilter">
+        <option [defaultSelected]="true" [ngValue]="safeSearchEnum.SAFE">SafeSearch activé</option>
+        <option [ngValue]="safeSearchEnum.MODERATE">SafeSearch modéré</option>
+        <option [ngValue]="safeSearchEnum.RESTRICTED">SafeSearch désactivé</option>
+      </select>
+      <select id="sort-select" [(ngModel)]="sortFilter">
+        <option [defaultSelected]="true" [ngValue]="sortEnum.DATE_POSTED_DESC">Date d'importation</option>
+        <option [ngValue]="sortEnum.DATE_TAKEN_DESC">Date de prise de vue</option>
+        <option [ngValue]="sortEnum.RELEVANCE">Pertinents</option>
+        <option [ngValue]="sortEnum.INTERESTINGNESS_DESC">Intéressants</option>
+      </select>
     </div>
 
 
@@ -22,7 +31,7 @@
   <mat-grid-tile *ngFor="let photo of photos;">
     <a class="result-img" [routerLink]="['/details', photo.id]">
       <span>{{photo.title}}</span>
-      <img src="{{getImageURLFromPhoto(photo)}}" alt="Photo" style="max-height: 200px;">
+      <img src="{{getImageURLFromPhoto(photo)}}" alt="Photo" style="max-height: 200px;" loading="lazy">
     </a>
   </mat-grid-tile>
 </mat-grid-list>

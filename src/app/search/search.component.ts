@@ -1,10 +1,9 @@
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {PhotosInterface} from '../shared/models/photos-interface';
-import {ResultComponent} from '../result/result.component';
-import {ActivatedRoute, Router} from '@angular/router';
+import {HttpErrorResponse} from '@angular/common/http';
+import {Component, OnInit} from '@angular/core';
 import {PhotoInterface} from "../shared/models/photo-interface";
 import {FlickrService} from "../shared/services/flickr.service";
+import {SafeSearch} from "../shared/enums/safe-search";
+import {Sort} from "../shared/enums/sort";
 
 @Component({
   selector: 'app-search',
@@ -13,14 +12,24 @@ import {FlickrService} from "../shared/services/flickr.service";
 })
 export class SearchComponent implements OnInit {
 
-  search: string = "";
-  photos: PhotoInterface[] = [];
+  search: string;
+  photos: PhotoInterface[];
+  isFiltersDisplayed: boolean;
+  safeSearchFilter: SafeSearch;
+  safeSearchEnum = SafeSearch;
+  sortFilter: Sort;
+  sortEnum = Sort;
 
   constructor(private flickrService: FlickrService) {
+    this.search = '';
+    this.photos = [];
+    this.isFiltersDisplayed = false;
+    this.safeSearchFilter = SafeSearch.SAFE;
+    this.sortFilter = Sort.DATE_POSTED_DESC;
   }
 
   public ngOnInit() {
-    document.getElementById("search")!.addEventListener('keydown', e => this.detectEnter(e));
+    document.getElementById("text-input")!.addEventListener('keydown', e => this.detectEnter(e));
     this.flickrService.getInterestingPhotos().subscribe((photos) => {
       this.photos = photos;
     }, (err: HttpErrorResponse) => {
@@ -30,14 +39,13 @@ export class SearchComponent implements OnInit {
   }
 
   public detectEnter(event : any){
-    const key = event.key;
     if(event.key == "Enter"){
       this.submitSearch();
     }
   }
 
   public submitSearch() {
-    this.flickrService.searchPhotosByText(this.search).subscribe((data) => {
+    this.flickrService.searchPhotosByTextAndFilters(this.search, this.safeSearchFilter, this.sortFilter).subscribe((data) => {
       this.photos = data.photos.photo;
     }, (err: HttpErrorResponse) => {
       console.log("An error has occurred");
@@ -47,5 +55,9 @@ export class SearchComponent implements OnInit {
 
   public getImageURLFromPhoto(photo: PhotoInterface) {
     return this.flickrService.getImageURLFromPhoto(photo);
+  }
+
+  public toggleFilters(): void {
+    this.isFiltersDisplayed = !this.isFiltersDisplayed;
   }
 }
