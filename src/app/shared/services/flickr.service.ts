@@ -6,6 +6,7 @@ import {map} from "rxjs/operators";
 import {PhotosInterface} from "../models/photos-interface";
 import {PhotoInterface} from "../models/photo-interface";
 import {DetailsInterface} from "../models/details-interface";
+import { Comments } from '../models/comments';
 
 @Injectable({
   providedIn: 'root'
@@ -71,5 +72,18 @@ export class FlickrService {
           nojsoncallback: '1',        // Je viens de rester bloqué 1h30 sur ca c'est très grave
         },
       });
+  }
+
+  public getPhotoComments(photo_id: number): Observable<Comments> {
+    return this.http
+      .get<Comments>(environment.apiURL, {
+        params: {
+          api_key: environment.apiKey,
+          method: 'flickr.photos.comments.getList',
+          format: 'json',
+          nojsoncallback: '1',
+          photo_id: photo_id
+        }
+      })
   }
 }

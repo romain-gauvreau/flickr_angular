@@ -6,6 +6,7 @@ import {FlickrService} from "../shared/services/flickr.service";
 import {environment} from "../../environments/environment";
 import { PhotoInterface } from '../shared/models/photo-interface';
 import { waitForAsync } from '@angular/core/testing';
+import { Comment } from '../shared/models/comment';
 
 @Component({
   selector: 'app-details',
@@ -32,8 +33,6 @@ export class DetailsComponent implements OnInit {
 
   comments_content: string = "";
 
-  nbr_people: number = 0;
-
   latitude: string = "";
   longitude: string = "";
   locality: string = "";
@@ -45,8 +44,10 @@ export class DetailsComponent implements OnInit {
   other_photos: PhotoInterface[] = [];
   other_photos_page = 1;
 
-  page = 1;
+  photoPage = 1;
   pages = 1;
+
+  commentsManager: CommentsManager = new CommentsManager
 
   constructor(public flickrService: FlickrService, private route: ActivatedRoute) {
     this.id = Number(this.route.snapshot.paramMap.get('id'));
@@ -71,17 +72,17 @@ export class DetailsComponent implements OnInit {
       this.date_lastupdate.setUTCSeconds(+data.photo.dates.lastupdate);
       this.views = data.photo.views;
       this.comments_content = data.photo.comments._content;
-      //this.nbr_people = data.photo.people.haspeople;
-      //this.latitude = data.photo.location.latitude;
-      //this.longitude = data.photo.location.longitude;
-      //this.locality = data.photo.location.locality._content;
-      //this.county = data.photo.location.county._content;
-      //this.region = data.photo.location.country._content;
-      //this.neighbourhood = data.photo.location.neighbourhood._content;
+      this.latitude = data.photo.location.latitude;
+      this.longitude = data.photo.location.longitude;
+      this.locality = data.photo.location.locality._content;
+      this.county = data.photo.location.county._content;
+      this.region = data.photo.location.region._content;
+      this.country = data.photo.location.country._content;
+      this.neighbourhood = data.photo.location.neighbourhood._content;
 
       // Not sure about that one ?
-      this.getOtherPhotos(this.page);
-
+      this.getOtherPhotos(this.photoPage);
+      this.getComments();
     }, (err: HttpErrorResponse) => {
       console.log("An error has occurred");
       console.log(err);
@@ -92,29 +93,60 @@ export class DetailsComponent implements OnInit {
     // flickr.photos.comments.getList
   }
 
-  getOtherPhotos(page: number) {
-      this.flickrService.getOtherPhotosFromUser(this.owner_nsid, page).subscribe((data) => {
+  getOtherPhotos(photoPage: number) {
+      this.flickrService.getOtherPhotosFromUser(this.owner_nsid, photoPage).subscribe((data) => {
         this.other_photos = data.photos.photo;
         this.pages = data.photos.pages;
-        console.log(this.owner_nsid);
-        console.log(this.other_photos.length);
       }, (err: HttpErrorResponse) => {
         console.log("An error has occurred");
         console.log(err);
       })
   }
 
-  nextPage() {
-    if (this.page < this.pages) {
-      this.page++;
-      this.getOtherPhotos(this.page);
+  getComments() {
+    this.flickrService.getPhotoComments(this.id).subscribe((data) => {
+      this.commentsManager.comments = data.comments.comment;
+      this.commentsManager.toDisplay = data.comments.comment.slice(0, this.commentsManager.commentPageSize);
+    }, (err: HttpErrorResponse) => {
+      console.log("An error has occured");
+      console.log(err);
+    })
+  }
+
+  nextPhotoPage() {
+    if (this.photoPage < this.pages) {
+      this.photoPage++;
+      this.getOtherPhotos(this.photoPage);
     }
   }
 
-  previousPage() {
-    if (this.page > 1) {
-      this.page--;
-      this.getOtherPhotos(this.page);
+  previousPhotoPage() {
+    if (this.photoPage > 1) {
+      this.photoPage--;
+      this.getOtherPhotos(this.photoPage);
+    }
+  }
+}
+
+class CommentsManager {
+  comments: Comment[] = [];
+  toDisplay: Comment[] = [];
+  commentPage = 0;
+  commentPageSize = 5;
+
+  nextCommentPage() {
+    if (this.commentPage < Math.floor(this.comments.length / this.commentPageSize)) {
+      this.commentPage++;
+      var newStart = this.commentPage * this.commentPageSize
+      this.toDisplay = this.comments.slice(newStart, newStart + this.commentPageSize)
+    }
+  }
+
+  previousCommentPage() {
+    if (this.commentPage > 0) {
+      this.commentPage--;
+      var newStart = this.commentPage * this.commentPageSize
+      this.toDisplay = this.comments.slice(newStart, newStart + this.commentPageSize)
     }
   }
 }
