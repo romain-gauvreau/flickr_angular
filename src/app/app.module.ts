@@ -3,7 +3,6 @@ import {BrowserModule} from '@angular/platform-browser';
 
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {ResultComponent} from './result/result.component';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
 import {SearchComponent} from './search/search.component';
@@ -28,7 +27,6 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    ResultComponent,
     SearchComponent,
     DetailsComponent,
     LogoComponent

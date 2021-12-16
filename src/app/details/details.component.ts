@@ -4,8 +4,7 @@ import {ActivatedRoute} from "@angular/router";
 import {FlickrService} from "../shared/services/flickr.service";
 // TODO change this shit
 import {environment} from "../../environments/environment";
-import { PhotoInterface } from '../shared/models/photo-interface';
-import { waitForAsync } from '@angular/core/testing';
+import {PhotoInterface} from '../shared/models/photo-interface';
 
 @Component({
   selector: 'app-details',
@@ -58,7 +57,7 @@ export class DetailsComponent implements OnInit {
 
   getDetails() {
     this.flickrService.getPhotoDetailsById(Number(this.id)).subscribe((data) => {
-      this.url = `${environment.imageServerURL}${data.photo.server}/${data.photo.id}_${data.photo.secret}.jpg`;;
+      this.url = `${environment.imageServerURL}${data.photo.server}/${data.photo.id}_${data.photo.secret}.jpg`;
       this.title = data.photo.title._content;
       this.owner_username = data.photo.owner.username;
       this.owner_realname = data.photo.owner.realname;
@@ -93,15 +92,15 @@ export class DetailsComponent implements OnInit {
   }
 
   getOtherPhotos(page: number) {
-      this.flickrService.getOtherPhotosFromUser(this.owner_nsid, page).subscribe((data) => {
-        this.other_photos = data.photos.photo;
-        this.pages = data.photos.pages;
-        console.log(this.owner_nsid);
-        console.log(this.other_photos.length);
-      }, (err: HttpErrorResponse) => {
-        console.log("An error has occurred");
-        console.log(err);
-      })
+    this.flickrService.getOtherPhotosFromUser(this.owner_nsid, page).subscribe((data) => {
+      this.other_photos = data.photos.photo;
+      this.pages = data.photos.pages;
+      console.log(this.owner_nsid);
+      console.log(this.other_photos.length);
+    }, (err: HttpErrorResponse) => {
+      console.log("An error has occurred");
+      console.log(err);
+    })
   }
 
   nextPage() {

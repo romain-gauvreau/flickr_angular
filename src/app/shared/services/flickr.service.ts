@@ -6,6 +6,8 @@ import {map} from "rxjs/operators";
 import {PhotosInterface} from "../models/photos-interface";
 import {PhotoInterface} from "../models/photo-interface";
 import {DetailsInterface} from "../models/details-interface";
+import {SafeSearch} from "../enums/safe-search";
+import {Sort} from "../enums/sort";
 
 @Injectable({
   providedIn: 'root'
@@ -41,7 +43,7 @@ export class FlickrService {
       });
   }
 
-  public searchPhotosByText(text: string): Observable<PhotosInterface> {
+  public searchPhotosByTextAndFilters(text: string, safeSearch = SafeSearch.SAFE, sort = Sort.DATE_POSTED_DESC, page = 1, per_page = 25): Observable<PhotosInterface> {
     return this.http
       .get<PhotosInterface>(environment.apiURL, {
         params: {
@@ -50,6 +52,10 @@ export class FlickrService {
           format: 'json',
           nojsoncallback: '1',
           text: text,
+          safe_search: safeSearch,
+          sort: sort,
+          page: page,
+          per_page: per_page,
         },
       });
   }
@@ -68,7 +74,7 @@ export class FlickrService {
           user_id: user_nsid,
           page: page,
           per_page: per_page,
-          nojsoncallback: '1',        // Je viens de rester bloqué 1h30 sur ca c'est très grave
+          nojsoncallback: '1',
         },
       });
   }

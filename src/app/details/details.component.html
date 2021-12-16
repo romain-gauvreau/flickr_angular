@@ -1,34 +1,34 @@
 <h2>Photo</h2>
 <h1>{{this.title}}</h1>
-<img [src]="this.url" [alt]="this.title" />
+<img [src]="this.url" [alt]="this.title"/>
 
 <ul>
-    <li>description: {{description}}</li>
-    <li>owner username: {{owner_username}}</li>
-    <li>owner real name: {{owner_realname}}</li>
-    <li>owner location: {{owner_location}}</li>
-    <li>date posted: {{date_posted}}</li>
-    <li>date taken: {{date_taken}}</li>
-    <li>last update: {{date_lastupdate}}</li>
-    <li>views: {{views}}</li>
-    <li>comments_content: {{comments_content}}</li>
-    <li>nbr people: {{nbr_people}}</li>
-    <li>latitude: {{latitude}}</li>
-    <li>longitude: {{longitude}}</li>
-    <li>locality: {{locality}}</li>
-    <li>county: {{county}}</li>
-    <li>region: {{region}}</li>
-    <li>country: {{country}}</li>
-    <li>neighbourhood: {{neighbourhood}}</li>
+  <li>description: {{description}}</li>
+  <li>owner username: {{owner_username}}</li>
+  <li>owner real name: {{owner_realname}}</li>
+  <li>owner location: {{owner_location}}</li>
+  <li>date posted: {{date_posted}}</li>
+  <li>date taken: {{date_taken}}</li>
+  <li>last update: {{date_lastupdate}}</li>
+  <li>views: {{views}}</li>
+  <li>comments_content: {{comments_content}}</li>
+  <li>nbr people: {{nbr_people}}</li>
+  <li>latitude: {{latitude}}</li>
+  <li>longitude: {{longitude}}</li>
+  <li>locality: {{locality}}</li>
+  <li>county: {{county}}</li>
+  <li>region: {{region}}</li>
+  <li>country: {{country}}</li>
+  <li>neighbourhood: {{neighbourhood}}</li>
 </ul>
 
 <h2>Autres photos de l'auteur</h2>
 <p>{{ owner_nsid }}</p>
 <p>{{ other_photos.length }}</p>
 <ul>
-    <li *ngFor="let item of other_photos">
-        <h4><a href="http://localhost:4200/details/{{item.id}}">{{ item.title }}</a></h4>
-        <img [src]="this.flickrService.getImageURLFromPhoto(item)" /></li>
+  <li *ngFor="let item of other_photos">
+    <h4><a href="http://localhost:4200/details/{{item.id}}">{{ item.title }}</a></h4>
+    <img [src]="this.flickrService.getImageURLFromPhoto(item)" [alt]="item.title"/></li>
 </ul>
 
 <button (click)="previousPage()"><</button>
