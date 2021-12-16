@@ -43,7 +43,7 @@ export class FlickrService {
       });
   }
 
-  public searchPhotosByTextAndFilters(text: string, safeSearch = SafeSearch.SAFE, sort = Sort.DATE_POSTED_DESC): Observable<PhotosInterface> {
+  public searchPhotosByTextAndFilters(text: string, safeSearch = SafeSearch.SAFE, sort = Sort.DATE_POSTED_DESC, page = 1, per_page = 25): Observable<PhotosInterface> {
     return this.http
       .get<PhotosInterface>(environment.apiURL, {
         params: {
@@ -54,6 +54,8 @@ export class FlickrService {
           text: text,
           safe_search: safeSearch,
           sort: sort,
+          page: page,
+          per_page: per_page,
         },
       });
   }

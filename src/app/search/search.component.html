@@ -35,3 +35,6 @@
     </a>
   </mat-grid-tile>
 </mat-grid-list>
+
+<button *ngIf="isSearch" (click)="previousPage()"><</button>
+<button *ngIf="isSearch" (click)="nextPage()">></button>
