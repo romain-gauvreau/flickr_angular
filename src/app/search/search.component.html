@@ -1,29 +1,27 @@
-
-
 <div class="big-form">
-<div>
-  <input type="text" placeholder="Rechercher des images" [(ngModel)]="search" id="text-input">
-      <input type="button" value="Filtres" id="filtreBtn" (click)="toggleFilters()">
-    </div>
+  <div>
+    <input type="text" placeholder="Rechercher des images" [(ngModel)]="search" id="text-input">
+    <input type="button" value="Filtres" id="filtreBtn" (click)="toggleFilters()">
+  </div>
 
-    <div id="filtres" *ngIf="isFiltersDisplayed">
-      <select id="search-safe-select" [(ngModel)]="safeSearchFilter">
-        <option [defaultSelected]="true" [ngValue]="safeSearchEnum.SAFE">SafeSearch activé</option>
-        <option [ngValue]="safeSearchEnum.MODERATE">SafeSearch modéré</option>
-        <option [ngValue]="safeSearchEnum.RESTRICTED">SafeSearch désactivé</option>
-      </select>
-      <select id="sort-select" [(ngModel)]="sortFilter">
-        <option [defaultSelected]="true" [ngValue]="sortEnum.DATE_POSTED_DESC">Date d'importation</option>
-        <option [ngValue]="sortEnum.DATE_TAKEN_DESC">Date de prise de vue</option>
-        <option [ngValue]="sortEnum.RELEVANCE">Pertinents</option>
-        <option [ngValue]="sortEnum.INTERESTINGNESS_DESC">Intéressants</option>
-      </select>
-    </div>
+  <div id="filtres" *ngIf="isFiltersDisplayed">
+    <select id="search-safe-select" [(ngModel)]="safeSearchFilter">
+      <option [defaultSelected]="true" [ngValue]="safeSearchEnum.SAFE">SafeSearch activé</option>
+      <option [ngValue]="safeSearchEnum.MODERATE">SafeSearch modéré</option>
+      <option [ngValue]="safeSearchEnum.RESTRICTED">SafeSearch désactivé</option>
+    </select>
+    <select id="sort-select" [(ngModel)]="sortFilter">
+      <option [defaultSelected]="true" [ngValue]="sortEnum.DATE_POSTED_DESC">Date d'importation</option>
+      <option [ngValue]="sortEnum.DATE_TAKEN_DESC">Date de prise de vue</option>
+      <option [ngValue]="sortEnum.RELEVANCE">Pertinents</option>
+      <option [ngValue]="sortEnum.INTERESTINGNESS_DESC">Intéressants</option>
+    </select>
+  </div>
 
 
-<div>
-  <input type="submit" (click)="submitSearch()" class="big-button">
-</div>
+  <div>
+    <input type="submit" (click)="submitSearch()" class="big-button">
+  </div>
 </div>
 
 
