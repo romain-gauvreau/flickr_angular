@@ -23,7 +23,7 @@
       <p *ngIf="date_posted">Posted on {{ date_posted }}<span *ngIf="date_posted != date_lastupdate">, lasted updated on {{ date_lastupdate }}</span></p>
       <span *ngIf="latitude || longitude || locality || county || region || country || neighbourhood">
         <p>Localisation :</p>
-        <ul>
+        <ul style="list-style-type: none;">
           <li *ngIf="latitude">latitude: {{latitude}}</li>
           <li *ngIf="longitude">longitude: {{longitude}}</li>
           <li *ngIf='locality'><img src="/assets/icon-location.png" alt="icon-location" width="32"/>locality: {{locality}}</li>
