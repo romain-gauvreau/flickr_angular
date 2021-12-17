@@ -6,6 +6,7 @@ import {map} from "rxjs/operators";
 import {PhotosInterface} from "../models/photos-interface";
 import {PhotoInterface} from "../models/photo-interface";
 import {DetailsInterface} from "../models/details-interface";
+import { Comments } from '../models/comments';
 import {SafeSearch} from "../enums/safe-search";
 import {Sort} from "../enums/sort";
 
@@ -77,5 +78,18 @@ export class FlickrService {
           nojsoncallback: '1',
         },
       });
+  }
+
+  public getPhotoComments(photo_id: number): Observable<Comments> {
+    return this.http
+      .get<Comments>(environment.apiURL, {
+        params: {
+          api_key: environment.apiKey,
+          method: 'flickr.photos.comments.getList',
+          format: 'json',
+          nojsoncallback: '1',
+          photo_id: photo_id
+        }
+      })
   }
 }
