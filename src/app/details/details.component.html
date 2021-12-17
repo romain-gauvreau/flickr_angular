@@ -10,9 +10,9 @@
       <img [src]="this.url" [alt]="this.title" />
       <h4 style="text-align: left; margin-left: 170px;">{{ views }} views</h4>
     </div>
-    <div style="float:right; width: 50%; padding-top: 25px;">
+    <div style="float:right; width: 30%; padding-top: 25px; margin-right: 150px;">
       <h3><span *ngIf="owner_realname">{{ owner_realname }} </span>@{{ owner_username }}<span *ngIf="owner_location">, {{ owner_location }}</span></h3>
-      <h4>{{ description }}</h4>
+      <h4 [innerHTML]="description" style="text-indent: 0%;"></h4>
       <h5 *ngIf="date_taken">Captured on {{ date_taken }}</h5>
       <p>Posted on {{ date_posted }}<span *ngIf="date_posted != date_lastupdate">, lasted updated on {{ date_lastupdate }}</span></p>
       <span *ngIf="latitude || longitude || locality || county || region || country || neighbourhood">
