@@ -3,3 +3,13 @@
     width: 85%;
     position:relative;
 }
+
+.icon-container{
+    display:table;
+    margin-left:35%;
+}
+
+.icon{
+    display:table-cell;
+    vertical-align: middle;
+} 

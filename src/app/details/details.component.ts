@@ -49,6 +49,8 @@ export class DetailsComponent implements OnInit {
   photoPage = 1;
   pages = 1;
 
+  all_description : string = ""; // save all the description if its length is greater than 100 chars
+
   commentsManager: CommentsManager = new CommentsManager
 
   constructor(public flickrService: FlickrService, private route: ActivatedRoute) {
@@ -68,6 +70,10 @@ export class DetailsComponent implements OnInit {
       this.owner_location = data.photo.owner.location;
       this.owner_nsid = data.photo.owner.nsid;
       this.description = data.photo.description._content;
+      if(this.description.length > 100){
+        this.all_description = this.description;
+        this.description = this.description.substring(0,100) + "...";
+      }
       try { 
         this.date_posted = formatDate(this.date_postedDate.setUTCSeconds(+data.photo.dates.posted), 'MMM dd, yyyy @ HH:ss', 'en'); 
       } catch (err: any) {
@@ -107,6 +113,11 @@ export class DetailsComponent implements OnInit {
     // check if every meta we want are here, other pictures from the owner
     // flickr.people.getPhotos or flickr.people.getPublicPhotos
     // flickr.photos.comments.getList
+  }
+
+  displayAllDescription(){
+    this.description = this.all_description;
+    this.all_description =  "";
   }
 
   getOtherPhotos(photoPage: number) {
