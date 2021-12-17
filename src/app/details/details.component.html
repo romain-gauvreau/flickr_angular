@@ -1,45 +1,65 @@
 <head>
-    <meta charset="UTF-8">
+  <meta charset="UTF-8">
 </head>
 
-<h2>Photo</h2>
-<h1>{{this.title}}</h1>
-<img [src]="this.url" [alt]="this.title"/>
-
-<ul>
-    <li>description: {{description}}</li>
-    <li>owner username: {{owner_username}}</li>
-    <li>owner real name: {{owner_realname}}</li>
-    <li>owner location: {{owner_location}}</li>
-    <li>date posted: {{date_posted}}</li>
-    <li>date taken: {{date_taken}}</li>
-    <li>last update: {{date_lastupdate}}</li>
-    <li>views: {{views}}</li>
-    <li>Number of comments: {{comments_content}}</li>
-    <li *ngIf="latitude">latitude: {{latitude}}</li>
-    <li *ngIf="longitude">longitude: {{longitude}}</li>
-    <li *ngIf='locality'>locality: {{locality}}</li>
-    <li *ngIf='county'>county: {{county}}</li>
-    <li *ngIf='region'>region: {{region}}</li>
-    <li *ngIf='country'>country: {{country}}</li>
-    <li *ngIf="neighbourhood">neighbourhood: {{neighbourhood}}</li>
-</ul>
-
-<h2>Autres photos de l'auteur</h2>
-<ul>
-  <li *ngFor="let item of other_photos">
-    <h4><a href="http://localhost:4200/details/{{item.id}}">{{ item.title }}</a></h4>
-    <img [src]="this.flickrService.getImageURLFromPhoto(item)" [alt]="item.title"/></li>
-</ul>
-<button (click)="previousPhotoPage()"><</button>
-<button (click)="nextPhotoPage()">></button>
-
-<h2>Commentaires</h2>
-<ul>
-    <li *ngFor="let item of commentsManager.toDisplay">
-        <h4>{{ item.authorname }}</h4>
-        <div [innerHTML]="item._content"></div>
-    </li>
-</ul>
-<button (click)="commentsManager.previousCommentPage()"><</button>
-<button (click)="commentsManager.nextCommentPage()">></button>
+<div class="center; position: relative">
+  <h2>Photo</h2>
+  <h1>{{this.title}}</h1>
+  <div style="width: 100%; position: relative;">
+    <div style="float:left; width: 50%; margin-top: 40px;">
+      <img [src]="this.url" [alt]="this.title" />
+      <h4 style="text-align: left; margin-left: 170px;">{{ views }} views</h4>
+    </div>
+    <div style="float:right; width: 50%; padding-top: 25px;">
+      <h3><span *ngIf="owner_realname">{{ owner_realname }} </span>@{{ owner_username }}<span *ngIf="owner_location">, {{ owner_location }}</span></h3>
+      <h4>{{ description }}</h4>
+      <h5 *ngIf="date_taken">Captured on {{ date_taken }}</h5>
+      <p>Posted on {{ date_posted }}<span *ngIf="date_posted != date_lastupdate">, lasted updated on {{ date_lastupdate }}</span></p>
+      <span *ngIf="latitude || longitude || locality || county || region || country || neighbourhood">
+        <p>Localisation :</p>
+        <ul>
+          <li *ngIf="latitude">latitude: {{latitude}}</li>
+          <li *ngIf="longitude">longitude: {{longitude}}</li>
+          <li *ngIf='locality'>locality: {{locality}}</li>
+          <li *ngIf='county'>county: {{county}}</li>
+          <li *ngIf='region'>region: {{region}}</li>
+          <li *ngIf='country'>country: {{country}}</li>
+          <li *ngIf="neighbourhood">neighbourhood: {{neighbourhood}}</li>
+        </ul>
+      </span>
+    </div>  
+  </div>
+  <div style="clear:both;">
+    <div style="width: 100%; position: relative;">
+      <div style="float:left; width: 50%;">
+        <span *ngIf="commentsManager.toDisplay.length > 0">
+          <h2>Comments</h2>
+          <h5>{{ comments_content }}</h5>
+          <ul>
+            <li  *ngFor="let item of commentsManager.toDisplay">
+              <h4>{{ item.authorname }} said:</h4>
+              <div [innerHTML]="item._content"></div>
+            </li>
+          </ul>
+          <button (click)="commentsManager.previousCommentPage()">< Previous</button>
+          <button (click)="commentsManager.nextCommentPage()">Next ></button>
+        </span>
+        <ng-template #elseBlock>0 comments</ng-template>
+      </div>
+      <div style="float:left; width: 50%; margin: auto">
+        <span *ngIf="other_photos.length > 0">
+          <h2>Other pictures from {{ owner_username }}</h2>
+          <ul>
+            <li *ngFor="let item of other_photos" style="list-style-type: none;">
+              <h4><a href="http://localhost:4200/details/{{item.id}}">{{ item.title }}</a></h4>
+              <img [src]="this.flickrService.getImageURLFromPhoto(item)" [alt]="item.title" />
+            </li>
+          </ul>
+          <button (click)="previousPhotoPage()">< Previous</button>
+          <button (click)="nextPhotoPage()">Next ></button>
+        </span>
+        <ng-template #elseBlock>{{ owner_username }} did not post any other picture</ng-template>
+      </div>
+    </div>
+  </div>
+</div>
