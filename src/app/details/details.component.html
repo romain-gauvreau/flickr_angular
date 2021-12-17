@@ -6,19 +6,24 @@
 <h1>{{this.title}}</h1>
 <img [src]="this.url" [alt]="this.title"/>
 
+<div class="icon-container">
+    <img src="/assets/icon-view.png" alt="icon-view" width="32"/>
+    <span class="icon">{{views}}</span>
+    <img src="/assets/icon-comment.png" alt="icon-comment" width="32"/>
+    <span class="icon">{{comments_content}}</span>
+</div>
+
 <ul>
-    <li>description: {{description}}</li>
+    <li>description: {{description}}<button *ngIf="all_description" (click)="displayAllDescription()">...</button></li>
     <li>owner username: {{owner_username}}</li>
     <li>owner real name: {{owner_realname}}</li>
     <li>owner location: {{owner_location}}</li>
     <li>date posted: {{date_posted}}</li>
     <li>date taken: {{date_taken}}</li>
     <li>last update: {{date_lastupdate}}</li>
-    <li>views: {{views}}</li>
-    <li>Number of comments: {{comments_content}}</li>
     <li *ngIf="latitude">latitude: {{latitude}}</li>
     <li *ngIf="longitude">longitude: {{longitude}}</li>
-    <li *ngIf='locality'>locality: {{locality}}</li>
+    <li *ngIf='locality'><img src="/assets/icon-location.png" alt="icon-location" width="32"/>locality: {{locality}}</li>
     <li *ngIf='county'>county: {{county}}</li>
     <li *ngIf='region'>region: {{region}}</li>
     <li *ngIf='country'>country: {{country}}</li>

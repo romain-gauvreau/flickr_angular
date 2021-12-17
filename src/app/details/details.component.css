@@ -1,0 +1,8 @@
+.icon-container{
+    display:table;
+}
+
+.icon{
+    display:table-cell;
+    vertical-align: middle;
+}
