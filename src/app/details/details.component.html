@@ -31,19 +31,23 @@
   </div>
   <div style="clear:both;">
     <div style="width: 100%; position: relative;">
-      <div style="float:left; width: 50%;">
+      <div style="float:left; width: 30%; margin-left: 150px;">
         <span *ngIf="commentsManager.toDisplay.length > 0">
           <h2>Comments</h2>
           <h5>{{ comments_content }}</h5>
           <ul>
-            <li  *ngFor="let item of commentsManager.toDisplay">
+            <li  *ngFor="let item of commentsManager.toDisplay" style="list-style-type: none;">
               <h4>{{ item.authorname }} said:</h4>
               <div [innerHTML]="item._content"></div>
             </li>
           </ul>
-          <button (click)="commentsManager.previousCommentPage()">< Previous</button>
-          <button (click)="commentsManager.nextCommentPage()">Next ></button>
-        </span>
+          <span *ngIf="commentsManager.commentPage > 0">
+            <button (click)="commentsManager.previousCommentPage()">< Previous</button>
+          </span>
+          <span *ngIf="commentsManager.toDisplay.length == commentsManager.commentPageSize">
+            <button (click)="commentsManager.nextCommentPage()">Next ></button>
+          </span>
+          </span>
         <ng-template #elseBlock>0 comments</ng-template>
       </div>
       <div style="float:left; width: 50%; margin: auto">
@@ -55,8 +59,12 @@
               <img [src]="this.flickrService.getImageURLFromPhoto(item)" [alt]="item.title" />
             </li>
           </ul>
-          <button (click)="previousPhotoPage()">< Previous</button>
-          <button (click)="nextPhotoPage()">Next ></button>
+          <span *ngIf="photoPage > 1">
+            <button (click)="previousPhotoPage()">< Previous</button>
+          </span>
+          <span *ngIf="photoPage < pages">
+            <button (click)="nextPhotoPage()">Next ></button>
+          </span>
         </span>
         <ng-template #elseBlock>{{ owner_username }} did not post any other picture</ng-template>
       </div>
