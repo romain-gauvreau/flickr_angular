@@ -68,9 +68,24 @@ export class DetailsComponent implements OnInit {
       this.owner_location = data.photo.owner.location;
       this.owner_nsid = data.photo.owner.nsid;
       this.description = data.photo.description._content;
-      this.date_posted = formatDate(this.date_postedDate.setUTCSeconds(+data.photo.dates.posted), 'MMM dd, yyyy @ HH:ss', 'en');
-      this.date_taken = formatDate(data.photo.dates.taken, 'MMM dd, yyyy @ HH:ss', 'en');
-      this.date_lastupdate = formatDate(this.date_lastupdateDate.setUTCSeconds(+data.photo.dates.lastupdate), 'MMM dd, yyyy @ HH:ss', 'en');
+      try { 
+        this.date_posted = formatDate(this.date_postedDate.setUTCSeconds(+data.photo.dates.posted), 'MMM dd, yyyy @ HH:ss', 'en'); 
+      } catch (err: any) {
+        console.log("An error has occurred");
+        console.log(err);
+      }
+      try { 
+        this.date_taken = formatDate(data.photo.dates.taken, 'MMM dd, yyyy @ HH:ss', 'en'); 
+      } catch (err: any) {
+        console.log("An error has occurred");
+        console.log(err);
+      }
+      try { 
+        this.date_lastupdate = formatDate(this.date_lastupdateDate.setUTCSeconds(+data.photo.dates.lastupdate), 'MMM dd, yyyy @ HH:ss', 'en'); 
+      } catch (err: any) {
+        console.log("An error has occurred");
+        console.log(err);
+      }
       this.views = data.photo.views;
       this.comments_content = data.photo.comments._content;
       if (data.photo.location) this.latitude = data.photo.location.latitude ;
