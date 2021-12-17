@@ -2,10 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {HttpErrorResponse} from '@angular/common/http';
 import {ActivatedRoute} from "@angular/router";
 import {FlickrService} from "../shared/services/flickr.service";
-// TODO change this shit
 import {environment} from "../../environments/environment";
 import { PhotoInterface } from '../shared/models/photo-interface';
-import { waitForAsync } from '@angular/core/testing';
 import { Comment } from '../shared/models/comment';
 
 @Component({
@@ -59,14 +57,13 @@ export class DetailsComponent implements OnInit {
 
   getDetails() {
     this.flickrService.getPhotoDetailsById(Number(this.id)).subscribe((data) => {
-      this.url = `${environment.imageServerURL}${data.photo.server}/${data.photo.id}_${data.photo.secret}.jpg`;;
+      this.url = `${environment.imageServerURL}${data.photo.server}/${data.photo.id}_${data.photo.secret}.jpg`;
       this.title = data.photo.title._content;
       this.owner_username = data.photo.owner.username;
       this.owner_realname = data.photo.owner.realname;
       this.owner_location = data.photo.owner.location;
       this.owner_nsid = data.photo.owner.nsid;
       this.description = data.photo.description._content;
-      // TODO : work this shit out
       this.date_posted.setUTCSeconds(+data.photo.dates.posted);
       this.date_taken = data.photo.dates.taken;
       this.date_lastupdate.setUTCSeconds(+data.photo.dates.lastupdate);

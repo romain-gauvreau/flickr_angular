@@ -4,7 +4,7 @@
 
 <h2>Photo</h2>
 <h1>{{this.title}}</h1>
-<img [src]="this.url" [alt]="this.title" />
+<img [src]="this.url" [alt]="this.title"/>
 
 <ul>
     <li>description: {{description}}</li>
@@ -27,9 +27,9 @@
 
 <h2>Autres photos de l'auteur</h2>
 <ul>
-    <li *ngFor="let item of other_photos">
-        <h4><a href="http://localhost:4200/details/{{item.id}}">{{ item.title }}</a></h4>
-        <img [src]="this.flickrService.getImageURLFromPhoto(item)" /></li>
+  <li *ngFor="let item of other_photos">
+    <h4><a href="http://localhost:4200/details/{{item.id}}">{{ item.title }}</a></h4>
+    <img [src]="this.flickrService.getImageURLFromPhoto(item)" [alt]="item.title"/></li>
 </ul>
 <button (click)="previousPhotoPage()"><</button>
 <button (click)="nextPhotoPage()">></button>

@@ -1,4 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body, app-root { width:100%; }
+body { margin: 0;
+  background-image:url("/assets/icon.png");
+  background-size: 32px; }
+*:not(input) { font-family: "Comic Sans MS", cursive, sans-serif!important; }
+app-root {
+  display: inline-block;
+  text-align: center;
+  width: 90%;
+  margin: 0 5%;
+  background-color: silver;
+  background: linear-gradient(
+    90deg, transparent, silver 5%, silver 95%, transparent);
+}

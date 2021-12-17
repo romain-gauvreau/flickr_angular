@@ -3,7 +3,6 @@ import {BrowserModule} from '@angular/platform-browser';
 
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {ResultComponent} from './result/result.component';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
 import {SearchComponent} from './search/search.component';
@@ -18,6 +17,7 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatCardModule} from "@angular/material/card";
 import {MatFormFieldModule} from "@angular/material/form-field";
 
+
 const routes: Routes = [
   { path: '', component: SearchComponent },
   { path: 'search/:query', component: SearchComponent },
@@ -27,7 +27,6 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    ResultComponent,
     SearchComponent,
     DetailsComponent,
     LogoComponent
