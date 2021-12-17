@@ -14,7 +14,7 @@
       <h3><span *ngIf="owner_realname">{{ owner_realname }} </span>@{{ owner_username }}<span *ngIf="owner_location">, {{ owner_location }}</span></h3>
       <h4 [innerHTML]="description" style="text-indent: 0%;"></h4>
       <h5 *ngIf="date_taken">Captured on {{ date_taken }}</h5>
-      <p>Posted on {{ date_posted }}<span *ngIf="date_posted != date_lastupdate">, lasted updated on {{ date_lastupdate }}</span></p>
+      <p *ngIf="date_posted">Posted on {{ date_posted }}<span *ngIf="date_posted != date_lastupdate">, lasted updated on {{ date_lastupdate }}</span></p>
       <span *ngIf="latitude || longitude || locality || county || region || country || neighbourhood">
         <p>Localisation :</p>
         <ul>
