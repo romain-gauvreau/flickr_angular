@@ -5,6 +5,7 @@ import {FlickrService} from "../shared/services/flickr.service";
 import {environment} from "../../environments/environment";
 import { PhotoInterface } from '../shared/models/photo-interface';
 import { Comment } from '../shared/models/comment';
+import { DatePipe, formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-details',
@@ -23,9 +24,12 @@ export class DetailsComponent implements OnInit {
   owner_nsid: string = "";
 
   description: string = "";
-  date_posted = new Date(0);
+  date_postedDate = new Date(0);
   date_taken: string = "";
-  date_lastupdate = new Date(0);
+  date_lastupdateDate = new Date(0);
+
+  date_posted: string = "";
+  date_lastupdate: string = "";
 
   views: string = "";
 
@@ -64,18 +68,18 @@ export class DetailsComponent implements OnInit {
       this.owner_location = data.photo.owner.location;
       this.owner_nsid = data.photo.owner.nsid;
       this.description = data.photo.description._content;
-      this.date_posted.setUTCSeconds(+data.photo.dates.posted);
-      this.date_taken = data.photo.dates.taken;
-      this.date_lastupdate.setUTCSeconds(+data.photo.dates.lastupdate);
+      this.date_posted = formatDate(this.date_postedDate.setUTCSeconds(+data.photo.dates.posted), 'MMM dd, yyyy @ HH:ss', 'en');
+      this.date_taken = formatDate(data.photo.dates.taken, 'MMM dd, yyyy @ HH:ss', 'en');
+      this.date_lastupdate = formatDate(this.date_lastupdateDate.setUTCSeconds(+data.photo.dates.lastupdate), 'MMM dd, yyyy @ HH:ss', 'en');
       this.views = data.photo.views;
       this.comments_content = data.photo.comments._content;
-      this.latitude = data.photo.location.latitude;
-      this.longitude = data.photo.location.longitude;
-      this.locality = data.photo.location.locality._content;
-      this.county = data.photo.location.county._content;
-      this.region = data.photo.location.region._content;
-      this.country = data.photo.location.country._content;
-      this.neighbourhood = data.photo.location.neighbourhood._content;
+      if (data.photo.location) this.latitude = data.photo.location.latitude ;
+      if (data.photo.location) this.longitude = data.photo.location.longitude;
+      if (data.photo.location) this.locality = data.photo.location.locality._content;
+      if (data.photo.location) this.county = data.photo.location.county._content;
+      if (data.photo.location) this.region = data.photo.location.region._content;
+      if (data.photo.location) this.country = data.photo.location.country._content;
+      if (data.photo.location) this.neighbourhood = data.photo.location.neighbourhood._content;
 
       // Not sure about that one ?
       this.getOtherPhotos(this.photoPage);
@@ -129,7 +133,7 @@ class CommentsManager {
   comments: Comment[] = [];
   toDisplay: Comment[] = [];
   commentPage = 0;
-  commentPageSize = 5;
+  commentPageSize = 50;
 
   nextCommentPage() {
     if (this.commentPage < Math.floor(this.comments.length / this.commentPageSize)) {
